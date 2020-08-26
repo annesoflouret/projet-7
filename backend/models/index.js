@@ -7,13 +7,18 @@ const db = {};
 let sequelize;
 
 // Connexion à la base de donnée
+let dialectOptions;
+if (process.env.DB_SOCKET == '') {
+  dialectOptions = {};
+}else {
+  dialectOptions = { socketPath: process.env.DB_SOCKET};
+}
+
 sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   dialect: 'mysql',
-  dialectOptions: {
-    socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
-  }
+  dialectOptions: dialectOptions
 });
 
 fs

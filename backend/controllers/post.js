@@ -1,4 +1,5 @@
 const models = require('../models');
+const utils = require('../utils/utils')
 
 // Récupère tous les posts
 exports.getAllPosts = (req, res) => {
@@ -33,12 +34,24 @@ exports.getOnePost = (req, res) => {
 }
 
 exports.createPosts = (req, res) => {
-    const postObject = JSON.parse(req.body.post); // on extrait l'objet JSON de notre req.body.article
-    post = models.Post.create({   
-      UserId : postObject.userId,
-      content : postObject.content,
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    const id = utils.getUserId(req.headers.authorization);
+    models.User.findOne({
+        attributes: ['id'],
+        where: { id: id }
     })
-    .then(() => res.status(201).json({ message: 'Article enregistrée' }))
-    .catch(error => res.status(500).json({ message: error + 'Article non enregistrée' }));
+    .then(user => {
+        if (user == null) {
+            return res.status(400).json({ error : "Utilisateur non trouvé"});
+        } else {
+            const postObject = JSON.parse(req.body.post); // on extrait l'objet JSON de notre req.body.article
+            post = models.Post.create({   
+                UserId : id,
+                content : postObject.content,
+                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            })
+            .then(() => res.status(201).json({ message: 'Article enregistrée' }))
+            .catch(error => res.status(500).json({ message: error + 'Article non enregistrée' }));
+        }
+    })
+    .catch(error => res.status(500).json({ message: 'Utilisateur non trouvé' }));
   };
