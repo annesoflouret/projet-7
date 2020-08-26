@@ -1,18 +1,37 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1 class="mt-5 d-flex justify-content-center">Connection</h1>
+    <div class="input-group input-group-lg">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-lg">E-Mail</span>
+      </div>
+      <input
+        type="text"
+        class="form-control"
+        aria-label="Large"
+        aria-describedby="inputGroup-sizing-sm"
+      />
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Password</span>
+        </div>
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Large"
+          aria-describedby="inputGroup-sizing-sm"
+        />
+      </div>
+    </div>
+    <b-button v-on:click="publish">Connection</b-button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+  name: "Home",
+};
 </script>
+
+<style>
+</style>
