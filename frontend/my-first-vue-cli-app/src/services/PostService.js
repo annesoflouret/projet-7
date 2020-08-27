@@ -13,7 +13,7 @@ export default {
   getPosts() {
     return apiClient.get('/posts')
   },
-  getPost(id) {
+  /*getPost(id) {
 
-  }
+  }*/
 }
