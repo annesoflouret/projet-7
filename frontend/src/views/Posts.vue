@@ -15,7 +15,7 @@ import axios from "axios";
 import CreatePost from "../components/CreatePost";
 
 export default {
-  name: "Wall",
+  name: "Posts",
   components: {
     CreatePost,
     //Post,
@@ -38,7 +38,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/api/post", {
+      .get("http://localhost:3000/api/posts", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
