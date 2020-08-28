@@ -47,7 +47,7 @@ export default {
     login() {
       if (this.dataLogin.email !== null || this.dataLogin.password !== null) {
         axios
-          .post("http://localhost:3000/api/user/login", this.dataLogin)
+          .post("http://localhost:3000/api/auth/login", this.dataLogin)
           .then((response) => {
             localStorage.setItem("token", response.data.token);
             this.$router.push({ path: "Posts" });
