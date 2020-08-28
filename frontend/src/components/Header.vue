@@ -8,8 +8,20 @@
   <body>
     <div>
       <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
-          <!--<img width="100" src="../src/assets/logo/icon-above-font.png" alt="Logo Gourpmania" />-->
+        <b-nav tabs justified class="navbar navbar-light bg-light navbar-dark bg-dark">
+          <router-link class="navbar-link" to="/wall">
+            <img
+              width="100"
+              class="imglogo"
+              src="../src/assets/logo/icon-above-font.png"
+              alt="Logo Groupomania"
+            />
+          </router-link>
+          <router-link to="/">Home</router-link>|
+          <router-link to="/posts">Posts</router-link>|
+          <router-link to="/user">User</router-link>|
+          <router-link to="/signup">Signup</router-link>|
+          <router-link to="/comments">Commentaires</router-link>
           <button
             class="navbar-toggler"
             type="button"
@@ -21,12 +33,7 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <router-link to="/">Home</router-link>|
-          <router-link to="/posts">Posts</router-link>|
-          <router-link to="/user">User</router-link>|
-          <router-link to="/signup">Signup</router-link>|
-          <router-link to="/comments">Commentaires</router-link>
-        </nav>
+        </b-nav>
       </header>
     </div>
   </body>

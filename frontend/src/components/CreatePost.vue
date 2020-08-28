@@ -10,7 +10,7 @@
       </div>
 
       <div class="mb-3 d-flex justify-content-center">Ajouter une image</div>
-      <input class="d-flex justify-content-center" type="file" ref="file" @change="selectFile" />
+      <input class="d-flex justify-content-center w-50" type="file" ref="file" @change="selectFile" />
 
       <b-form-group id="input-group-1" label="Publication: " label-for="input-post">
         <b-form-input
@@ -32,11 +32,10 @@
 
 <script>
 import axios from "axios";
+
 export default {
   name: "AddPost",
-  components: {
-    //
-  },
+  components: {},
   data() {
     return {
       post: {
@@ -56,7 +55,6 @@ export default {
       const formData = new FormData();
       formData.append("post", this.post.post);
       formData.append("file", this.file);
-      console.log(formData);
       try {
         let response = await axios.post("posts", formData);
         console.log(response.data);
@@ -71,5 +69,3 @@ export default {
   },
 };
 </script>
-
-

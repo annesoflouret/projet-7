@@ -19,7 +19,7 @@
             id="inputPassword"
             v-model="dataSignup.password"
           />
-          <small>Votre mot de passe doit contenir entre 6 et 15 caractères dont 1 majuscule et 1 minuscule</small>
+          <small>Votre mot de passe doit contenir entre 6 et 10 caractères dont 1 majuscule et 1 minuscule</small>
         </div>
         <button
           @click.prevent="sendSignup"
@@ -54,6 +54,7 @@ export default {
   methods: {
     // requête pour créer un user, sécurité grâce au regex
     sendSignup() {
+      console.log(this.dataSignup.email);
       const regexPassword = /((?=.*[a-z])(?=.*[A-Z]).{6,10})/;
       const regexEmail = /^[a-z0-9._-]+@[a-z0-9.-]{2,}[.][a-z]{2,3}$/;
       if (
@@ -62,7 +63,7 @@ export default {
         regexEmail.test(this.dataSignup.email)
       ) {
         axios
-          .post("http://localhost:3000/api/user/signup", this.dataSignup)
+          .post("http://localhost:3000/api/auth/signup", this.dataSignup)
           .then((response) => {
             console.log(response);
             this.$router.push({ path: "Wall" });
@@ -72,7 +73,7 @@ export default {
           })
           .catch((error) => console.log(error));
       } else {
-        alert("Désolé, vous n'avez pas rempli les champs correctement ! ");
+        alert("Merci de remplir correctement les champs ");
       }
     },
   },
