@@ -44,24 +44,19 @@ exports.createPosts = (req, res) => {
             if (user == null) {
                 return res.status(400).json({ error: "Utilisateur non trouvé" });
             } else {
-                console.log(req.file)
                 if (req.file != undefined) {
                     imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
                 } else {
                     imageUrl = null;
                 }
                 post = models.Post.create({
-                    post = models.Post.create({
-                        post = models.Post.create({
-                            post = models.Post.create({
-                                post = models.Post.create({
-                                    UserId: id,
-                                    content: req.body.content,
-                                    imageUrl: imageUrl
-                                })
-                                    .then(() => res.status(201).json({ message: 'Article enregistrée' }))
-                                    .catch(error => res.status(500).json({ message: error + 'Article non enregistrée' }));
-                            }
+                    UserId: id,
+                    content: req.body.content,
+                    imageUrl: imageUrl
+                })
+                    .then(() => res.status(201).json({ message: 'Article enregistrée' }))
+                    .catch(error => res.status(500).json({ message: error + 'Article non enregistrée' }));
+            }
         })
-                            .catch(error => res.status(500).json(console.log(error)));
-                    };
+        .catch(error => res.status(500).json(console.log(error)));
+};
