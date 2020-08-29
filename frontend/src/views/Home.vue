@@ -52,8 +52,7 @@ export default {
             localStorage.setItem("token", response.data.token);
             this.$router.push({ path: "Posts" });
           })
-          .catch((error) => {
-            console.log(error);
+          .catch(() => {
             this.revele = !this.revele;
           });
       }

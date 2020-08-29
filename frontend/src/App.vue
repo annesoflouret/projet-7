@@ -13,7 +13,7 @@
             <b-navbar-brand href="#">
               <router-link class="navbar-link" to="/wall">
                 <img
-                  width="100"
+                  width="50"
                   class="imglogo"
                   src="../src/assets/logo/icon-above-font.png"
                   alt="Logo Groupomania"
@@ -60,6 +60,10 @@
   <router-view />
 </div>
 </template>
+
+<script>
+export default {};
+</script>
 
 <style lang="scss">
 #app {
