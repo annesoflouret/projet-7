@@ -46,7 +46,10 @@ exports.signup = (req, res, next) => {
 
 // Connexion à son compte
 exports.login = (req, res, next) => {
-  models.User.findOne({ email: req.body.email })
+  models.User.findOne({
+    attributes: ['id', 'email', 'username', 'isAdmin', 'password'],
+    where: { email: req.body.email }
+  })
     .then(user => {
       if (!user) {
         return res.status(401).json({ error: 'Utilisateur non trouvé !' });
@@ -57,20 +60,21 @@ exports.login = (req, res, next) => {
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
           }
           res.status(200).json({
+            userId: user.id,
+            isAdmin: user.isAdmin,
+            username: user.username,
             token: jwt.sign(
               {
                 userId: user.id,
-                isAdmin: user.isAdmin,
-                username: user.username
               },
               process.env.TOKEN,
               { expiresIn: '24h' }
             )
           });
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => console.log(error));
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => console.log(error));
 };
 
 // Supprimer un compte
