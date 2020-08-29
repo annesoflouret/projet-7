@@ -66,7 +66,7 @@ export default {
           .post("http://localhost:3000/api/auth/signup", this.dataSignup)
           .then((response) => {
             console.log(response);
-            this.$router.push({ path: "Wall" });
+            this.$router.push({ path: "Login" });
             //Réinitialisation des champs après saisie
             this.dataSignup.email = null;
             this.dataSignup.password = null;
