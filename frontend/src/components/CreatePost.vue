@@ -1,40 +1,44 @@
 <template>
-  <div>
-    <div class="block-post w-75 mt-5">
-      <h1 class="mt-2">Ajouter une publication</h1>
-      <form enctype="multipart/form-data" action="/create" method="post">
-        <div class="input-group">
-          <label for="input">Écrivez dans ce champs</label>
-          <textarea v-model="contentPost.content" class="input" rows="3" id="input" type="text" />
-        </div>
-
-        <div>
-          <div class="inputImg">
-            Télécharger une image
-            <input
-              placeholder="Choisir un fichier"
-              id="file"
-              type="file"
-              class="inputImg"
-              @change="chooseFile"
+  <b-row class="justify-content-md-center">
+    <div>
+      <div class="block-post mt-5">
+        <h1 class="mt-2">Ajouter une publication</h1>
+        <form enctype="multipart/form-data" action="/create" method="post">
+          <div class="input-group">
+            <label for="input"></label>
+            <textarea
+              v-model="contentPost.content"
+              class="input"
+              rows="3"
+              id="input"
+              type="text"
+              placeholder="Écrivez dans ce champs"
             />
           </div>
-          <div class="mb-3" id="preview">
-            <!--<img v-if="imgPreview" :src="imgPreview" />-->
+
+          <div>
+            <div class="inputImg">
+              Télécharger une image
+              <input
+                id="file"
+                type="file"
+                class="inputImg"
+                @change="chooseFile"
+              />
+            </div>
           </div>
-        </div>
-        <button
-          type="submit"
-          @click.prevent="createPost"
-          class="btn btn-secondary btn-poster mb-3 mt-3"
-        >Publier</button>
-      </form>
+          <button
+            type="submit"
+            @click.prevent="createPost"
+            class="btn btn-secondary btn-poster mb-3 mt-3"
+          >Publier</button>
+        </form>
+      </div>
     </div>
-  </div>
+  </b-row>
 </template>
 
 <script>
-// import d'axios pour les requêtes et de la bibliothèque vuex
 import axios from "axios";
 import { mapState } from "vuex";
 export default {
@@ -44,7 +48,6 @@ export default {
       contentPost: {
         content: null,
         postImage: null,
-        imageData: "",
       },
       msgError: "",
     };
@@ -53,12 +56,12 @@ export default {
     ...mapState(["user"]),
   },
   methods: {
-    // Fonction pour créer un post
+    // Créer un post
     createPost() {
       const formdata = new FormData();
-      //on déclare une constante FormData pour stocker les infos du Post
-      formdata.append("image", this.contentPost.postImage); // L'image postée
-      formdata.append("content", this.contentPost.content); // Le texte posté
+      //Stock les infos du post
+      formdata.append("image", this.contentPost.postImage); // Image
+      formdata.append("content", this.contentPost.content); // Texte
       axios
         .post("http://localhost:3000/api/posts", formdata, {
           headers: {
@@ -66,7 +69,7 @@ export default {
           },
         })
         .then((response) => {
-          // Si la requête fonctionne, on recharge la page pour afficher le dernier post dans le Wall
+          // Rechargement de la page
           if (response) {
             window.location.reload();
           }
@@ -76,14 +79,6 @@ export default {
     chooseFile(event) {
       this.contentPost.postImage =
         event.target.files[0] || event.dataTransfer.files;
-      /* var input = event.target;
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = (e) => {
-                    this.contentPost.imageData = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }*/
     },
   },
 };

@@ -40,7 +40,6 @@ exports.createPosts = (req, res) => {
         where: { id: id }
     })
         .then(user => {
-            console.log(user);
             if (user == null) {
                 return res.status(400).json({ error: "Utilisateur non trouvé" });
             } else {

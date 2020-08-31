@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "User",
   components: {},
@@ -37,8 +36,8 @@ export default {
   methods: {
     async deleteUser() {
       try {
-        let response = await axios.delete("user/me");
-        console.log(response);
+        //let response = await axios.delete("user/me");
+
         localStorage.clear();
 
         document.location.reload(true);
@@ -50,11 +49,6 @@ export default {
         this.error = err.response.data.error;
       }
     },
-  },
-  mounted() {
-    axios.get("user/me").then((response) => {
-      this.user = response.data;
-    });
   },
 };
 </script>

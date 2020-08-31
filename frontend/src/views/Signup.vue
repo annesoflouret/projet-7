@@ -33,7 +33,6 @@
 </template>
 
 <script>
-//import de la bibliothèque et d'axios pour les requêtes
 //import { mapState } from "vuex";
 import axios from "axios";
 export default {
@@ -52,7 +51,7 @@ export default {
   //  ...mapState(["user"]),
   //},
   methods: {
-    // requête pour créer un user, sécurité grâce au regex
+    // requête pour créer un user, sécurisé grâce aux regex
     sendSignup() {
       console.log(this.dataSignup.email);
       const regexPassword = /((?=.*[a-z])(?=.*[A-Z]).{6,10})/;

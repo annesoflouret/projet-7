@@ -2,7 +2,6 @@
   <div>
     <CreatePost />
     <Post v-for="post in posts" v-bind:key="post.id" :post="post" />
-    <!--<modalBoxModerate :post="post" />-->
   </div>
 </template>
 
@@ -10,6 +9,7 @@
 import axios from "axios";
 import CreatePost from "../components/CreatePost";
 import Post from "../components/Post";
+
 import { mapState } from "vuex";
 
 export default {
@@ -20,7 +20,6 @@ export default {
   components: {
     CreatePost,
     Post,
-    //modalBoxModerate,
   },
   data() {
     return {
@@ -32,11 +31,6 @@ export default {
       posts: [],
     };
   },
-  methods: {
-    setInfos(payload) {
-      this.post = payload.post;
-    },
-  },
   mounted() {
     axios
       .get("http://localhost:3000/api/posts", {
@@ -44,14 +38,12 @@ export default {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
-      //.get("http://localhost:3000/api/post",this.$store.state.headerParams)
       .then((response) => {
         this.posts = response.data;
       })
       .catch((error) => {
-        console.log(error); //affiche pas le message 'normalement' envoyé par le back
+        console.log(error);
       });
-    //this.$store.dispatch("getUserInfos");
   },
 };
 </script>

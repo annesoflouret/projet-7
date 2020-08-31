@@ -16,7 +16,6 @@
         <b-nav-item v-if="user.token != null" to="/posts">Posts</b-nav-item>
       </b-navbar-nav>
 
-      <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-item v-if="user.token == null" to="/login">Login</b-nav-item>
         <b-nav-item v-if="user.token == null" to="/signup">Signup</b-nav-item>

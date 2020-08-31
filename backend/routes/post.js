@@ -11,6 +11,6 @@ router.get('/:id', auth, postCtrl.getOnePost);
 router.post('/', multer, auth, postCtrl.createPosts);
 
 router.get('/:id/comments', auth, commentCtrl.getAllComments);
-router.post('/:id/comments', auth, commentCtrl.createComments);
+router.post('/:id/comments', multer, auth, commentCtrl.createComments);
 
 module.exports = router;
