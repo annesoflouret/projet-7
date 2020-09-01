@@ -39,13 +39,10 @@ export default {
   methods: {
     // Créer un commentaire
     createComment() {
-      const formdata = new FormData();
-      //Stock les infos du commentaire
-      formdata.append("content", this.contentComment.content); // Texte
       axios
         .post(
           "http://localhost:3000/api/posts/" + this.post_id + "/comments",
-          formdata,
+          this.contentComment,
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
