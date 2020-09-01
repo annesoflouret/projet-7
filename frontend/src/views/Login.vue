@@ -18,6 +18,7 @@
         </b-col>
         <b-col sm="5">
           <b-form-input
+            type="password"
             id="input-default"
             placeholder="Enter your password"
             v-model="dataLogin.password"
@@ -45,7 +46,7 @@ export default {
 
   methods: {
     login() {
-      if (this.dataLogin.email !== null || this.dataLogin.password !== null) {
+      if (this.dataLogin.email !== "" && this.dataLogin.password !== "") {
         axios
           .post("http://localhost:3000/api/auth/login", this.dataLogin)
           .then((response) => {
@@ -53,9 +54,11 @@ export default {
             this.$store.dispatch("updateUser", response.data);
             this.$router.push({ path: "posts" });
           })
-          .catch(() => {
-            this.revele = !this.revele;
+          .catch((err) => {
+            alert(err.response.data.error);
           });
+      } else {
+        alert("L'email ou le mot de passe n'existe pas!");
       }
     },
   },

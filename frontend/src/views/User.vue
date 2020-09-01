@@ -6,48 +6,47 @@
       </b-col>
       <b-col sm="4">
         <div class="float-right">
-          <b-button v-on:click="deleteUser" variant="danger" class="ml-2">Supprimer</b-button>
+          <b-button v-on:click="deleteAccount" variant="danger" class="ml-2">Supprimer</b-button>
         </div>
       </b-col>
     </b-row>
-    <hr />
-    <b-alert
-      show
-      dismissible
-      fade
-      variant="success"
-      v-if="$route.params.message"
-    >{{ $route.params.message }}</b-alert>
-
     <p>Username: {{ user.username }}</p>
-    <p>Email : {{ user.email }}</p>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import { mapState } from "vuex";
+
 export default {
-  name: "User",
-  components: {},
   data() {
     return {
-      user: {},
+      deleteUser: "",
     };
   },
+  computed: {
+    ...mapState(["user"]),
+  },
+  name: "User",
+  components: {},
   methods: {
-    async deleteUser() {
-      try {
-        //let response = await axios.delete("user/me");
+    deleteAccount() {
+      alert((this.deleteUser = "Votre compte à bien été supprimé"));
+      axios
+        .delete("http://localhost:3000/api/auth/delete", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then(() => {
+          localStorage.clear();
+          setTimeout(() => {
+            this.$router.push({ path: "#/signup" });
+          }, 500);
+          window.location.reload();
+        })
 
-        localStorage.clear();
-
-        document.location.reload(true);
-        this.$router.replace({
-          name: "login",
-          params: { message: "Compte supprimé !" },
-        });
-      } catch (err) {
-        this.error = err.response.data.error;
-      }
+        .catch((error) => console.log(error));
     },
   },
 };

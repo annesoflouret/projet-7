@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const models = require('../models');
+const utils = require('../utils/utils')
 
 // créer un compte
 exports.signup = (req, res, next) => {
@@ -52,12 +53,12 @@ exports.login = (req, res, next) => {
   })
     .then(user => {
       if (!user) {
-        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+        return res.status(401).json({ error: 'L\'email ou le mot de passe n\'existe pas!' });
       }
       bcrypt.compare(req.body.password, user.password)
         .then(valid => {
           if (!valid) {
-            return res.status(401).json({ error: 'Mot de passe incorrect !' });
+            return res.status(401).json({ error: 'L\'email ou le mot de passe n\'existe pas!' });
           }
           res.status(200).json({
             userId: user.id,
@@ -79,22 +80,22 @@ exports.login = (req, res, next) => {
 
 // Supprimer un compte
 exports.deleteUser = (req, res, next) => {
-  models.User.findOne({ where: { username: req.body.username, email: req.body.email } }) //recherche d'un user
-    .then(user => {
-      if (!user) {
-        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
-      }
-      bcrypt.compare(req.body.password, user.password)
-        .then(valid => {
-          if (!valid) {
-            return res.status(401).json({ error: 'Mot de passe incorrect !' });
-          } else {
-            models.User.destroy({ where: { email: req.body.email } })
-              .then(() => res.status(200).json({ message: 'Utilisateur supprimé !' }))
-              .catch(error => res.status(400).json({ error }));
-          }
-        })
-        .catch(error => res.status(500).json({ error }));
-    })
-    .catch(error => res.status(500).json({ error }));
+  const id = utils.getUserId(req.headers.authorization);
+  console.log(id);
+  models.User.findOne({
+    attributes: ['id'],
+    where: { id: id }
+  }).then(user => {
+    if (!user) {
+      return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+    }
+
+    models.User.destroy({ where: { id: id } })
+      .then(() => res.status(200).json({ message: 'Utilisateur supprimé !' }))
+      .catch(error => console.log(error));
+
+  })
+    .catch(error => console.log(error));
 };
+
+//res.status(400).json({ error })
