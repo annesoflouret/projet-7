@@ -33,7 +33,6 @@
 </template>
 
 <script>
-//import { mapState } from "vuex";
 import axios from "axios";
 export default {
   name: "SignUp",
@@ -47,9 +46,6 @@ export default {
       msg: "",
     };
   },
-  //computed: {
-  //  ...mapState(["user"]),
-  //},
   methods: {
     // requête pour créer un user, sécurisé grâce aux regex
     sendSignup() {
