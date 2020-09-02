@@ -13,14 +13,14 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item v-if="user.token != null" to="/posts">Posts</b-nav-item>
+        <b-nav-item v-if="user" to="/posts">Posts</b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-item v-if="user.token == null" to="/login">Login</b-nav-item>
-        <b-nav-item v-if="user.token == null" to="/signup">Signup</b-nav-item>
-        <b-nav-item v-if="user.token != null" to="/user">User</b-nav-item>
-        <b-nav-item v-if="user.token != null" to="/logout" @click="logout">Logout</b-nav-item>
+        <b-nav-item v-if="!user" to="/login">Login</b-nav-item>
+        <b-nav-item v-if="!user" to="/signup">Signup</b-nav-item>
+        <b-nav-item v-if="user" to="/user">User</b-nav-item>
+        <b-nav-item v-if="user" to="/logout" @click="logout">Logout</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -36,12 +36,7 @@ export default {
   methods: {
     logout() {
       localStorage.clear();
-      this.$store.dispatch("updateUser", {
-        username: null,
-        userId: null,
-        token: null,
-        isAdmin: null,
-      });
+      this.$store.dispatch("updateUser", null);
       this.$router.push({ path: "/login" });
     },
   },

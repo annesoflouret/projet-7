@@ -13,8 +13,25 @@ export default {
   getPosts() {
     return apiClient.get('/posts')
   },
-  /*getPost(id) {
+  getPostComments(id) {
+    return apiClient.get('/posts/' + id + "/comments")
+  },
+  postPost(formdata) {
+    return apiClient.post('/posts', formdata)
+  },
+  postCreateComment(id, contentComment) {
+    return apiClient.post('/posts/' + id + "/comments", contentComment)
+  },
+  putDepublishComment(id) {
+    return apiClient.put('/posts/' + id + "/publish", { published: 0 })
+  },
+  putPublishComment(id) {
+    return apiClient.put('/posts/' + id + "/publish", { published: 1 })
+  }
 
-  }*/
+
 }
+
+
+
 

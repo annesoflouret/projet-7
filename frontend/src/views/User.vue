@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapState } from "vuex";
+import UserService from "../services/UserService";
 
 export default {
   data() {
@@ -32,12 +32,8 @@ export default {
   methods: {
     deleteAccount() {
       alert((this.deleteUser = "Votre compte à bien été supprimé"));
-      axios
-        .delete("http://localhost:3000/api/auth/delete", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+      UserService.apiAuth
+        .delete("/delete")
         .then(() => {
           localStorage.clear();
           setTimeout(() => {

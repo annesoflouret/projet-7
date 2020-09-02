@@ -36,6 +36,7 @@ import Comment from "../components/Comment";
 import CreateComment from "../components/CreateComment";
 import axios from "axios";
 import { mapState } from "vuex";
+import PostService from "../services/PostService";
 
 export default {
   computed: {
@@ -85,12 +86,7 @@ export default {
     },
   },
   mounted() {
-    axios
-      .get("http://localhost:3000/api/posts/" + this.post.id + "/comments", {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
+    PostService.getPostComments(this.post.id)
       .then((response) => {
         this.comments = response.data;
       })

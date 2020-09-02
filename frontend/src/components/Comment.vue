@@ -1,10 +1,19 @@
 <template>
   <div>
-    <b-card bg-variant="primary" text-variant="white" class="m-5">
+    <b-card
+      id="card-size"
+      bg-variant="light"
+      text-variant="dark"
+      class="mt-5 mb-5 mr-5"
+      label="Small:"
+      label-for="file-small"
+      label-cols-sm="2"
+      label-size="sm"
+    >
       <b-media>
-        <h2 class="mt-0">{{ comment.User.username }}</h2>
-        <b-card-text>{{ comment.content }}</b-card-text>
-        <b-card-text>{{ moment(comment.createdAt).fromNow() }}</b-card-text>
+        <b-card-text id="user-size" class="mt-0">{{ comment.User.username }}</b-card-text>
+        <b-card-text id="content-size">{{ comment.content }}</b-card-text>
+        <b-card-text id="time-size">{{ moment(comment.createdAt).fromNow() }}</b-card-text>
       </b-media>
       <button
         type="submit"
@@ -23,7 +32,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import PostService from "../services/PostService";
 import { mapState } from "vuex";
 
 export default {
@@ -35,35 +44,38 @@ export default {
   props: ["comment"],
   methods: {
     depublishComment() {
-      axios
-        .put(
-          "http://localhost:3000/api/posts/" + this.comment.id + "/publish",
-          { published: 0 },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
-        .then(() => {
-          window.location.reload();
-        });
+      PostService.putDepublishComment.put(this.comment.id).then(() => {
+        window.location.reload();
+      });
     },
     publishComment() {
-      axios
-        .put(
-          "http://localhost:3000/api/posts/" + this.comment.id + "/publish",
-          { published: 1 },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
-        .then(() => {
-          window.location.reload();
-        });
+      PostService.putPublishComment.put(this.comment.id).then(() => {
+        window.location.reload();
+      });
     },
   },
 };
 </script>
+
+<style scoped>
+.user-size {
+  font-size: 15px;
+}
+#content-size {
+  font-size: 17px;
+}
+#time-size {
+  font-size: 10px;
+}
+
+#card-size {
+  height: 50%;
+  padding: 0;
+  border: solid;
+  border-color: navy;
+}
+
+#space {
+  margin-left: none;
+}
+</style>

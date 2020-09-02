@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import UserService from "../services/UserService";
 export default {
   data() {
     return {
@@ -47,8 +47,7 @@ export default {
   methods: {
     login() {
       if (this.dataLogin.email !== "" && this.dataLogin.password !== "") {
-        axios
-          .post("http://localhost:3000/api/auth/login", this.dataLogin)
+        UserService.postLogin(this.dataLogin)
           .then((response) => {
             localStorage.setItem("token", response.data.token);
             this.$store.dispatch("updateUser", response.data);

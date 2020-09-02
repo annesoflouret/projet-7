@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import UserService from "../services/UserService";
 export default {
   name: "SignUp",
   data() {
@@ -57,8 +57,7 @@ export default {
         regexPassword.test(this.dataSignup.password) &&
         regexEmail.test(this.dataSignup.email)
       ) {
-        axios
-          .post("http://localhost:3000/api/auth/signup", this.dataSignup)
+        UserService.postSignup(this.dataSignup)
           .then((response) => {
             console.log(response);
             this.$router.push({ path: "Login" });

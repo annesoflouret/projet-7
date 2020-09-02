@@ -20,8 +20,8 @@
 
 
 <script>
-import axios from "axios";
 import { mapState } from "vuex";
+import PostService from "../services/PostService";
 export default {
   name: "CreateComment",
   props: ["post_id"],
@@ -39,16 +39,8 @@ export default {
   methods: {
     // Créer un commentaire
     createComment() {
-      axios
-        .post(
-          "http://localhost:3000/api/posts/" + this.post_id + "/comments",
-          this.contentComment,
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
+      PostService.postCreateComment(this.post_id, this.contentComment)
+
         .then((response) => {
           // Rechargement de la page
           if (response) {

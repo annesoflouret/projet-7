@@ -1,45 +1,38 @@
 <template>
-  <b-row class="justify-content-md-center">
-    <div>
-      <div class="block-post mt-5">
-        <h1 class="mt-2">Ajouter une publication</h1>
-        <form enctype="multipart/form-data" action="/create" method="post">
-          <div class="input-group">
-            <label for="input"></label>
-            <textarea
-              v-model="contentPost.content"
-              class="input"
-              rows="3"
-              id="input"
-              type="text"
-              placeholder="Écrivez dans ce champs"
-            />
-          </div>
+  <div class="mx-auto">
+    <div class="block-post mt-5 ml-5 mr-5">
+      <h1 class="mt-2">Ajouter une publication</h1>
+      <form enctype="multipart/form-data" action="/create" method="post">
+        <div class="input-group">
+          <label for="input"></label>
+          <textarea
+            v-model="contentPost.content"
+            class="input col-12"
+            rows="3"
+            id="input"
+            type="text"
+            placeholder="Écrivez dans ce champs"
+          />
+        </div>
 
-          <div>
-            <div class="inputImg">
-              Télécharger une image
-              <input
-                id="file"
-                type="file"
-                class="inputImg"
-                @change="chooseFile"
-              />
-            </div>
+        <div>
+          <div class="inputImg">
+            Télécharger une image
+            <input id="file" type="file" class="inputImg" @change="chooseFile" />
           </div>
-          <button
-            type="submit"
-            @click.prevent="createPost"
-            class="btn btn-secondary btn-poster mb-3 mt-3"
-          >Publier</button>
-        </form>
-      </div>
+        </div>
+        <button
+          type="submit"
+          @click.prevent="createPost"
+          class="btn btn-secondary btn-poster mb-3 mt-3"
+        >Publier</button>
+      </form>
     </div>
-  </b-row>
+  </div>
 </template>
 
 <script>
-import axios from "axios";
+import PostService from "../services/PostService";
 import { mapState } from "vuex";
 export default {
   name: "CreatePost",
@@ -62,12 +55,7 @@ export default {
       //Stock les infos du post
       formdata.append("image", this.contentPost.postImage); // Image
       formdata.append("content", this.contentPost.content); // Texte
-      axios
-        .post("http://localhost:3000/api/posts", formdata, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+      PostService.postPost(formdata)
         .then((response) => {
           // Rechargement de la page
           if (response) {
