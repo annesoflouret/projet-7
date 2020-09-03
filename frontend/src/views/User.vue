@@ -1,16 +1,16 @@
 <template>
   <div>
-    <b-row>
-      <b-col sm="8">
-        <h3>Mon profil</h3>
-      </b-col>
-      <b-col sm="4">
-        <div class="float-right">
-          <b-button v-on:click="deleteAccount" variant="danger" class="ml-2">Supprimer</b-button>
-        </div>
-      </b-col>
-    </b-row>
-    <p>Username: {{ user.username }}</p>
+    <b-col class="mt-5 text-center">
+      <h3>Mon profil</h3>
+    </b-col>
+    <b-col sm="4"></b-col>
+
+    <div class="float-center">
+      <p class="m-5">Compte: {{ user.username }}</p>
+    </div>
+    <div class="float-center">
+      <b-button v-on:click="deleteAccount" variant="danger">Supprimer</b-button>
+    </div>
   </div>
 </template>
 
@@ -32,14 +32,11 @@ export default {
   methods: {
     deleteAccount() {
       alert((this.deleteUser = "Votre compte à bien été supprimé"));
-      UserService.apiAuth
-        .delete("/delete")
+      UserService.deleteUser()
         .then(() => {
           localStorage.clear();
-          setTimeout(() => {
-            this.$router.push({ path: "#/signup" });
-          }, 500);
-          window.location.reload();
+          this.$router.push({ path: "/login" });
+          //window.location.reload();
         })
 
         .catch((error) => console.log(error));

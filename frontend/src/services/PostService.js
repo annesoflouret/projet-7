@@ -27,8 +27,14 @@ export default {
   },
   putPublishComment(id) {
     return apiClient.put('/posts/' + id + "/publish", { published: 1 })
-  }
+  },
+  putDepublishPost(id) {
+    return apiClient.put('/posts/' + id + "/publish", { published: 0 })
+  },
+  putPublishPost(id) {
+    return apiClient.put('/posts/' + id + "/publish", { published: 1 })
 
+  }
 
 }
 

@@ -2,7 +2,10 @@
 <body class="body-intro">
   <main class="main">
     <form class="cadre w-50 m-auto">
-      <div class="container">
+      <div class="container mt-5">
+        <div class="text-center">
+          <h1 class="m-3">Inscrivez-vous</h1>
+        </div>
         <div class="form-group">
           <label for="inputEmail">Votre e-mail</label>
           <input type="email" class="form-control" id="inputEmail" v-model="dataSignup.email" />

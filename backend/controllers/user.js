@@ -60,6 +60,8 @@ exports.login = (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ error: 'L\'email ou le mot de passe n\'existe pas!' });
           }
+          console.log('test');
+          console.log(user.id);
           res.status(200).json({
             userId: user.id,
             isAdmin: user.isAdmin,

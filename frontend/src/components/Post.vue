@@ -34,7 +34,6 @@
 <script>
 import Comment from "../components/Comment";
 import CreateComment from "../components/CreateComment";
-import axios from "axios";
 import { mapState } from "vuex";
 import PostService from "../services/PostService";
 
@@ -55,34 +54,14 @@ export default {
   props: ["post"],
   methods: {
     depublishPost() {
-      axios
-        .put(
-          "http://localhost:3000/api/posts/" + this.post.id + "/publish",
-          { published: 0 },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
-        .then(() => {
-          window.location.reload();
-        });
+      PostService.putDepublishPost.put(this.comment.id).then(() => {
+        window.location.reload();
+      });
     },
     publishPost() {
-      axios
-        .put(
-          "http://localhost:3000/api/posts/" + this.post.id + "/publish",
-          { published: 1 },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
-        .then(() => {
-          window.location.reload();
-        });
+      PostService.putPublishPost.put(this.comment.id).then(() => {
+        window.location.reload();
+      });
     },
   },
   mounted() {

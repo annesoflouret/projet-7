@@ -8,6 +8,7 @@ module.exports = {
       console.log(token);
       try {
         let decodedToken = jwt.verify(token, process.env.TOKEN)
+        console.log(decodedToken.userId);
         return decodedToken.userId
       }
       catch (err) {

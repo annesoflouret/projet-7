@@ -37,7 +37,6 @@ export default {
     logout() {
       localStorage.clear();
       this.$store.dispatch("updateUser", null);
-      this.$router.push({ path: "/login" });
     },
   },
 };
