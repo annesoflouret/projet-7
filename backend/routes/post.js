@@ -13,6 +13,6 @@ router.put('/:id/publish', auth, postCtrl.updatePostPublished);
 
 router.get('/:id/comments', auth, commentCtrl.getAllComments);
 router.post('/:id/comments', auth, commentCtrl.createComments);
-router.put('/:id/publish', auth, commentCtrl.updateCommentPublished);
+router.put('/:id/comments/publish', auth, commentCtrl.updateCommentPublished);
 
 module.exports = router;

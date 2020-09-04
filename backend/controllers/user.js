@@ -42,7 +42,7 @@ exports.signup = (req, res, next) => {
             .catch(error => res.status(500).json({ message: error + 'Utilisateur non enregistrée' }));
         })
     })
-    .catch(error => console.log(error));
+    .catch(error => res.status(500).json);
 };
 
 // Connexion à son compte
@@ -60,8 +60,6 @@ exports.login = (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ error: 'L\'email ou le mot de passe n\'existe pas!' });
           }
-          console.log('test');
-          console.log(user.id);
           res.status(200).json({
             userId: user.id,
             isAdmin: user.isAdmin,
@@ -73,17 +71,16 @@ exports.login = (req, res, next) => {
               process.env.TOKEN,
               { expiresIn: '24h' }
             )
-          });
+          })
         })
-        .catch(error => console.log(error));
-    })
-    .catch(error => console.log(error));
-};
+        .catch(error => res.status(500).json);
+
+    }).catch(error => res.status(400).json({ error }))
+}
 
 // Supprimer un compte
 exports.deleteUser = (req, res, next) => {
   const id = utils.getUserId(req.headers.authorization);
-  console.log(id);
   models.User.findOne({
     attributes: ['id'],
     where: { id: id }
@@ -94,10 +91,8 @@ exports.deleteUser = (req, res, next) => {
 
     models.User.destroy({ where: { id: id } })
       .then(() => res.status(200).json({ message: 'Utilisateur supprimé !' }))
-      .catch(error => console.log(error));
+      .catch(error => res.status(400).json({ error }))
 
   })
-    .catch(error => console.log(error));
+    .catch(error => res.status(500).json);
 };
-
-//res.status(400).json({ error })

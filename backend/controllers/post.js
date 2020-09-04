@@ -3,6 +3,7 @@ const utils = require('../utils/utils')
 
 // Récupère tous les posts
 exports.getAllPosts = (req, res) => {
+    console.log(req.headers.authorization);
     const id = utils.getUserId(req.headers.authorization);
     models.User.findOne({
         attributes: ['id', 'isAdmin'],
@@ -32,10 +33,10 @@ exports.getAllPosts = (req, res) => {
                         res.status(404).json({ error: 'Aucune publication' })
                     }
                 })
-                .catch(err => console.log(err))
+                .catch(err => res.status(500).json)
         }
     })
-        .catch(error => res.status(500).json(console.log(error)));
+        .catch(error => res.status(500).json);
 }
 
 exports.getOnePost = (req, res) => {
@@ -75,7 +76,7 @@ exports.createPosts = (req, res) => {
                     .catch(error => res.status(500).json({ message: error + 'Article non enregistrée' }));
             }
         })
-        .catch(error => res.status(500).json(console.log(error)));
+        .catch(error => res.status(500).json);
 };
 
 exports.updatePostPublished = (req, res) => {
@@ -98,5 +99,5 @@ exports.updatePostPublished = (req, res) => {
                     .catch(error => res.status(500).json({ message: error + 'Article non mis a jour' }))
             }
         })
-        .catch(error => res.status(500).json(console.log(error)));
+        .catch(error => res.status(500).json);
 };
