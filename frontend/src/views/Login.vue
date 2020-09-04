@@ -50,6 +50,7 @@ export default {
         UserService.postLogin(this.dataLogin)
           .then((response) => {
             localStorage.setItem("token", response.data.token);
+            console.log(localStorage.getItem("token"));
             this.$store.dispatch("updateUser", response.data);
             this.$router.push({ path: "posts" });
           })

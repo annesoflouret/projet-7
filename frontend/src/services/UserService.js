@@ -1,29 +1,18 @@
 import axios from 'axios'
+import apiHeader from './ApiHeader';
 
 const apiUser = axios.create({
   baseURL: "http://localhost:3000/api/auth"
 })
 
-const apiAuth = axios.create({
-  baseURL: "http://localhost:3000/api/auth",
-  headers: {
-    Authorization: "Bearer " + localStorage.getItem("token"),
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  }
-})
-
-
 export default {
   postSignup(dataSignup) {
-    return apiUser.post('/signup', dataSignup)
+    return apiUser.post('/signup', dataSignup, apiHeader(false))
   },
   postLogin(dataLogin) {
-    console.log(dataLogin);
-    return apiUser.post('/login', dataLogin)
+    return apiUser.post('/login', dataLogin, apiHeader(false))
   },
-
   deleteUser() {
-    return apiAuth.delete('/delete')
+    return apiUser.delete('/delete', apiHeader())
   }
 }

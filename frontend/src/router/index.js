@@ -21,8 +21,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
-    beforeEnter: guard
+    component: Login
   },
   {
     path: '/posts',
@@ -41,7 +40,7 @@ const routes = [
     name: 'signup',
     component: Signup
   },
-  { path: "*", redirect: "/login" }
+  //  { path: "*", redirect: "/login" }
 ]
 
 const router = new VueRouter({

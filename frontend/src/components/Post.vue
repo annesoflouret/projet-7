@@ -1,18 +1,15 @@
 <template>
   <div>
     <b-card bg-variant="secondary" text-variant="white" class="m-5">
-      <b-media>
+      <div>
+        <b-img v-if="post.imageUrl != null" :src="post.imageUrl" alt="image post" id="img-position"></b-img>
+      </div>
+      <div>
         <h2 class="mt-0">{{ post.id }}{{ post.User.username }}</h2>
-        <b-img
-          v-if="post.imageUrl != null"
-          :src="post.imageUrl"
-          fluid
-          alt="image post"
-          style="max-width: 200px; float: left;"
-        ></b-img>
+
         <b-card-text>{{ post.id }}{{ post.content }}</b-card-text>
         <b-card-text>{{ moment(post.createdAt).fromNow() }}</b-card-text>
-      </b-media>
+      </div>
       <button
         type="submit"
         v-if="user.isAdmin && post.published == 1"
@@ -54,12 +51,12 @@ export default {
   props: ["post"],
   methods: {
     depublishPost() {
-      PostService.putDepublishPost.put(this.comment.id).then(() => {
+      PostService.putDepublishPost(this.post.id).then(() => {
         window.location.reload();
       });
     },
     publishPost() {
-      PostService.putPublishPost.put(this.comment.id).then(() => {
+      PostService.putPublishPost(this.post.id).then(() => {
         window.location.reload();
       });
     },
@@ -75,3 +72,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#img-position {
+  max-width: 200px;
+  float: left;
+}
+</style>
