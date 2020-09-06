@@ -2,14 +2,19 @@
   <div>
     <b-card bg-variant="secondary" text-variant="white" class="m-5">
       <div>
-        <b-img v-if="post.imageUrl != null" :src="post.imageUrl" alt="image post" id="img-position"></b-img>
+        <b-img
+          v-if="post.imageUrl != null"
+          :src="post.imageUrl"
+          alt="image post"
+          class="img-position float-left"
+        ></b-img>
       </div>
       <div>
-        <h2 class="mt-0">{{ post.id }}{{ post.User.username }}</h2>
-
-        <b-card-text>{{ post.id }}{{ post.content }}</b-card-text>
+        <b-card-text id="text-size">{{ post.content }}</b-card-text>
+        <b-card-text class="mt-0">Publié par {{ post.User.username }}</b-card-text>
         <b-card-text>{{ moment(post.createdAt).fromNow() }}</b-card-text>
       </div>
+      <!-- Button de modération, cacher et/ou afficher les commentaires et les posts -->
       <button
         type="submit"
         v-if="user.isAdmin && post.published == 1"
@@ -23,8 +28,9 @@
         class="btn btn-danger btn-poster mb-3 mt-3"
       >Afficher</button>
     </b-card>
+    <!-- Affichage du formulaire de création de commentaires -->
     <CreateComment :post_id="post.id" />
-    <Comment class="ml-5" v-for="comment in comments" :key="comment.id" :comment="comment" />
+    <Comment v-for="comment in comments" :key="comment.id" :comment="comment" />
   </div>
 </template>
 
@@ -51,31 +57,47 @@ export default {
   props: ["post"],
   methods: {
     depublishPost() {
-      PostService.putDepublishPost(this.post.id).then(() => {
-        window.location.reload();
-      });
+      PostService.putDepublishPost(this.post.id)
+        .then(() => {
+          window.location.reload(); // Recharge la page
+        })
+        .catch((err) => {
+          // Recuperation du message d'erreur du backend
+          alert(err.response.data.error);
+        });
     },
     publishPost() {
-      PostService.putPublishPost(this.post.id).then(() => {
-        window.location.reload();
-      });
+      PostService.putPublishPost(this.post.id)
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((err) => {
+          // Recuperation du message d'erreur du backend
+          alert(err.response.data.error);
+        });
     },
   },
   mounted() {
+    // Appelle tous les commentaires liés à la publication
     PostService.getPostComments(this.post.id)
       .then((response) => {
         this.comments = response.data;
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        if (err.response.status != 404) {
+          alert(err.response.data.error);
+        }
       });
   },
 };
 </script>
 
 <style scoped>
-#img-position {
+.img-position {
   max-width: 200px;
-  float: left;
+  width: 100%;
+}
+#text-size {
+  font-size: 30px;
 }
 </style>

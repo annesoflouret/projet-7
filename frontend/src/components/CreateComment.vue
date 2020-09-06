@@ -18,7 +18,6 @@
   </b-row>
 </template>
 
-
 <script>
 import { mapState } from "vuex";
 import PostService from "../services/PostService";
@@ -30,7 +29,6 @@ export default {
       contentComment: {
         content: null,
       },
-      msgError: "",
     };
   },
   computed: {
@@ -40,14 +38,16 @@ export default {
     // Créer un commentaire
     createComment() {
       PostService.postCreateComment(this.post_id, this.contentComment)
-
         .then((response) => {
           // Rechargement de la page
           if (response) {
             window.location.reload();
           }
         })
-        .catch((error) => (this.msgError = error));
+        .catch((err) => {
+          // Recuperation du message d'erreur du backend
+          alert(err.response.data.error);
+        });
     },
   },
 };

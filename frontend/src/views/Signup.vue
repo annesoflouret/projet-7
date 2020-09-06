@@ -24,11 +24,7 @@
           />
           <small>Votre mot de passe doit contenir entre 6 et 10 caractères dont 1 majuscule et 1 minuscule</small>
         </div>
-        <button
-          @click.prevent="sendSignup"
-          type="submit"
-          class="btn btn-danger mb-3 mt-3"
-        >Créer mon compte</button>
+        <b-button @click.prevent="sendSignup" type="submit" class="mb-3 mt-3">Créer mon compte</b-button>
       </div>
     </form>
   </main>
@@ -52,7 +48,6 @@ export default {
   methods: {
     // requête pour créer un user, sécurisé grâce aux regex
     sendSignup() {
-      console.log(this.dataSignup.email);
       const regexPassword = /((?=.*[a-z])(?=.*[A-Z]).{6,10})/;
       const regexEmail = /^[a-z0-9._-]+@[a-z0-9.-]{2,}[.][a-z]{2,3}$/;
       if (
@@ -61,14 +56,16 @@ export default {
         regexEmail.test(this.dataSignup.email)
       ) {
         UserService.postSignup(this.dataSignup)
-          .then((response) => {
-            console.log(response);
+          .then(() => {
             this.$router.push({ path: "Login" });
             //Réinitialisation des champs après saisie
             this.dataSignup.email = null;
             this.dataSignup.password = null;
           })
-          .catch((error) => console.log(error));
+          .catch((err) => {
+            // Recuperation du message d'erreur du backend
+            alert(err.response.data.error);
+          });
       } else {
         alert("Merci de remplir correctement les champs ");
       }
@@ -76,6 +73,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

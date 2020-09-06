@@ -8,19 +8,16 @@
         alt="Logo Groupomania"
       />
     </b-navbar-brand>
-
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item v-if="user" to="/posts">Posts</b-nav-item>
+        <b-nav-item v-if="user" to="/posts">Mur</b-nav-item>
       </b-navbar-nav>
-
       <b-navbar-nav class="ml-auto">
-        <b-nav-item v-if="!user" to="/login">Login</b-nav-item>
-        <b-nav-item v-if="!user" to="/signup">Signup</b-nav-item>
-        <b-nav-item v-if="user" to="/user">User</b-nav-item>
-        <b-nav-item v-if="user" to="/logout" @click="logout">Logout</b-nav-item>
+        <b-nav-item v-if="!user" to="/login">Connexion</b-nav-item>
+        <b-nav-item v-if="!user" to="/signup">Inscription</b-nav-item>
+        <b-nav-item v-if="user" to="/user">Compte</b-nav-item>
+        <b-nav-item v-if="user" to="/logout" @click="logout">Déconnexion</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

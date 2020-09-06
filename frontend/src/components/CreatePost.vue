@@ -1,6 +1,6 @@
 <template>
-  <div class="mx-auto">
-    <div class="block-post mt-5 ml-5 mr-5">
+  <div class="mx-auto border border-primary mt-5 p-4 col-10">
+    <div class="block-post">
       <h1 class="mt-2">Ajouter une publication</h1>
       <form enctype="multipart/form-data" action="/create" method="post">
         <div class="input-group">
@@ -11,21 +11,22 @@
             rows="3"
             id="input"
             type="text"
-            placeholder="Écrivez dans ce champs"
+            :placeholder="'Que voulez vous dire ' + user.username + ' ?'"
           />
         </div>
-
         <div>
-          <div class="inputImg">
+          <div class="inputImg mt-3">
             Télécharger une image
-            <input id="file" type="file" class="inputImg" @change="chooseFile" />
+            <input
+              id="file"
+              type="file"
+              title="Aucun fichier"
+              class="inputImg"
+              @change="chooseFile"
+            />
           </div>
         </div>
-        <button
-          type="submit"
-          @click.prevent="createPost"
-          class="btn btn-secondary btn-poster mb-3 mt-3"
-        >Publier</button>
+        <b-button type="submit" @click.prevent="createPost" class="btn btn-poster mb-3 mt-3">Publier</b-button>
       </form>
     </div>
   </div>
@@ -42,7 +43,6 @@ export default {
         content: null,
         postImage: null,
       },
-      msgError: "",
     };
   },
   computed: {
@@ -61,8 +61,11 @@ export default {
           if (response) {
             window.location.reload();
           }
-        }) // Sinon, on affiche une erreur de requête
-        .catch((error) => (this.msgError = error));
+        })
+        .catch((err) => {
+          // Recuperation du message d'erreur du backend
+          alert(err.response.data.error);
+        });
     },
     chooseFile(event) {
       this.contentPost.postImage =
@@ -73,26 +76,4 @@ export default {
 </script>
 
 <style>
-.input-text {
-  width: 100%;
-}
-.input-group {
-  padding: 2%;
-}
-h3 {
-  text-align: center;
-}
-.block-post {
-  border: grey 1px solid !important;
-}
-.image-preview {
-  padding: 20px;
-}
-img.preview {
-  border: 1px solid rgb(20, 20, 20);
-  padding: 5px;
-}
-.btn-poster {
-  margin-left: 75%;
-}
 </style>

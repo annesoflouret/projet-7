@@ -9,7 +9,7 @@
       <p class="m-5">Compte: {{ user.username }}</p>
     </div>
     <div class="float-center">
-      <b-button v-on:click="deleteAccount" variant="danger">Supprimer</b-button>
+      <b-button v-on:click="deleteAccount">Supprimer</b-button>
     </div>
   </div>
 </template>
@@ -36,10 +36,12 @@ export default {
         .then(() => {
           localStorage.clear();
           this.$router.push({ path: "/login" });
-          //window.location.reload();
         })
 
-        .catch((error) => console.log(error));
+        .catch((err) => {
+          // Recuperation du message d'erreur du backend
+          alert(err.response.data.error);
+        });
     },
   },
 };

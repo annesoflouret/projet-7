@@ -36,12 +36,11 @@ export default {
       .then((response) => {
         this.posts = response.data;
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        // Recuperation du message d'erreur du backend
+        alert(err.response.data.error);
       });
   },
 };
 </script>
 
-<style scoped>
-</style>
