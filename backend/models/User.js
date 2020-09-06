@@ -5,6 +5,5 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     isAdmin: DataTypes.BOOLEAN
   }, {});
-
   return User;
 };

@@ -11,7 +11,7 @@ router.get('/:id', auth, postCtrl.getOnePost);
 router.post('/', multer, auth, postCtrl.createPosts);
 router.put('/:id/publish', auth, postCtrl.updatePostPublished);
 
-router.get('/:id/comments', auth, commentCtrl.getAllComments);
+router.get('/:id/comments', auth, commentCtrl.getPostComments);
 router.post('/:id/comments', auth, commentCtrl.createComments);
 router.put('/:id/comments/publish', auth, commentCtrl.updateCommentPublished);
 
