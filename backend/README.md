@@ -4,10 +4,9 @@
 
 - Node.js 10.21
 - nodemon
+- MySQL Server
 
-
-Import - The "file" in your my SQL server
-
+Import - The [groupomania.sql file](https://github.com/annesoflouret/Projet-6/blob/master/groupomania.sql) in your my SQL server
 
 Launch the command 
 
