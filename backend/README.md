@@ -6,7 +6,7 @@
 - nodemon
 - MySQL Server
 
-Import - The [groupomania.sql file](https://github.com/annesoflouret/Projet-6/blob/master/groupomania.sql) in your my SQL server
+Import - The [groupomania.sql file](https://github.com/annesoflouret/Projet-6/blob/master/backend/groupomania.sql) in your my SQL server
 
 Launch the command 
 
@@ -20,4 +20,4 @@ nodemon serve
 
 ## .env
 
-Copy [.env.example](https://github.com/annesoflouret/Projet-6/blob/master/.env.example) in .env and set the values for your environment.
+Copy [.env.example](https://github.com/annesoflouret/projet-7/blob/master/backend/.env.example) in .env and set the values for your environment.
