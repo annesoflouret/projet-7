@@ -31,7 +31,3 @@ export default {
     return apiClient.put('/posts/' + id + "/comments/publish", { published: 1 }, apiHeader())
   }
 }
-
-
-
-

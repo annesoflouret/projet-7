@@ -33,6 +33,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
  The project will run on [http://localhost:8080/](http://localhost:8080/).
 
+### Accounts
 
+ The backend database has 2 accounts:
 
+ Admin account: admin@groupomania.com / Password: Groupomania
 
+ User account: johndoe@groupomania.com / Password: Groupomania

@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     imageUrl: DataTypes.STRING,
     published: DataTypes.BOOLEAN
   }, {});
+  // Lien entre une publication et un utilisateur
   Post.associate = function (models) {
-    // associations can be defined here
     models.Post.belongsTo(models.User, {
       foreignKey: {
         allowNull: false

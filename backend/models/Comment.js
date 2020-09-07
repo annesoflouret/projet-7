@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     PostId: DataTypes.INTEGER,
     published: DataTypes.BOOLEAN
   }, {});
+  // Lien entre un commentaire et un utilisateur
   Comment.associate = function (models) {
-    // associations can be defined here
     models.Comment.belongsTo(models.User, {
       foreignKey: {
         allowNull: false

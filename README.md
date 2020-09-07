@@ -1,3 +1,4 @@
-#Projet 7 Groupomania
+# Projet 7 Groupomania
 
-Veulliez voir les readme dans les dossiers backend et frontend
+
+To install the project, please check the README.md in the backend and frontend folder.

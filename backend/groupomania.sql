@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 07, 2020 at 07:25 AM
+-- Generation Time: Sep 07, 2020 at 10:23 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.4.2
 
@@ -43,7 +43,7 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `userId`, `postId`, `content`, `published`, `createdAt`, `updatedAt`) VALUES
-(1, 2, 1, 'Hello', 1, '2020-09-07 07:23:44', '2020-09-07 07:23:44');
+(1, 2, 1, 'Hello', 1, '2020-09-07 07:23:44', '2020-09-07 17:40:21');
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `userId`, `content`, `imageUrl`, `published`, `createdAt`, `updatedAt`) VALUES
-(1, 2, 'Bonjour, je suis John Doe', NULL, 1, '2020-09-07 07:23:26', '2020-09-07 07:23:26');
+(1, 2, 'Bonjour, je suis John Doe', NULL, 1, '2020-09-07 07:23:26', '2020-09-07 17:40:16');
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,8 @@ INSERT INTO `users` (`id`, `email`, `password`, `username`, `isAdmin`, `createdA
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_comments_user` (`userId`);
 
 --
 -- Indexes for table `posts`
@@ -143,10 +144,16 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `fk_comments_user` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `posts`
 --
 ALTER TABLE `posts`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_posts_user` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

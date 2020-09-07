@@ -40,7 +40,11 @@ const routes = [
     name: 'signup',
     component: Signup
   },
-  //  { path: "*", redirect: "/login" }
+  {
+    path: '*',
+    redirect: '/posts',
+    beforeEnter: guard
+  }
 ]
 
 const router = new VueRouter({

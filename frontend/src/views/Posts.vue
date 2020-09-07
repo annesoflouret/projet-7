@@ -23,11 +23,6 @@ export default {
   },
   data() {
     return {
-      post: {
-        id: "",
-        content: "",
-        image: "",
-      },
       posts: [],
     };
   },
@@ -45,4 +40,3 @@ export default {
   },
 };
 </script>
-
