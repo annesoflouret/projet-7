@@ -38,7 +38,9 @@ export default {
       })
       .catch((err) => {
         // Recuperation du message d'erreur du backend
-        alert(err.response.data.error);
+        if (err.response.status != 404) {
+          alert(err.response.data.error);
+        }
       });
   },
 };

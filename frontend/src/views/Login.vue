@@ -18,17 +18,12 @@
         </b-col>
       </b-row>
 
-      <b-row class="my-1 d-flex justify-content-center">
+      <b-row class="d-flex justify-content-center">
         <b-col sm="2">
           <label for="input-default">Mot de passe:</label>
         </b-col>
         <b-col sm="5">
-          <b-form-input
-            type="password"
-            id="input-default"
-            placeholder="Mot de passe"
-            v-model="dataLogin.password"
-          ></b-form-input>
+          <b-form-input type="password" placeholder="Mot de passe" v-model="dataLogin.password"></b-form-input>
         </b-col>
       </b-row>
       <div class="d-flex justify-content-center mt-5">

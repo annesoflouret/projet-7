@@ -4,24 +4,23 @@
       <h1 class="mt-2">Ajouter une publication</h1>
       <form enctype="multipart/form-data" action="/create" method="post">
         <div class="input-group">
-          <label for="input"></label>
+          <label for="test">Message:</label>
           <textarea
             v-model="contentPost.content"
             class="input col-12"
+            id="test"
             rows="3"
-            id="input"
             type="text"
             :placeholder="'Que voulez vous dire ' + user.username + ' ?'"
           />
         </div>
         <div>
-          <div class="inputImg mt-3">
+          <div class="mt-3 text-left">
             Télécharger une image
             <input
-              id="file"
+              class="w-100"
               type="file"
               title="Aucun fichier"
-              class="inputImg"
               @change="chooseFile"
             />
           </div>
@@ -74,6 +73,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>
