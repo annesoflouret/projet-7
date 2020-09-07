@@ -5,17 +5,17 @@ const utils = require('../utils/utils');
 exports.getPostComments = (req, res) => {
     const id = utils.getUserId(req.headers.authorization);
     models.User.findOne({
-        attributes: ['id', 'isAdmin'],
+        attributes: ['id', 'isAdmin'], // Récupération des colones de la DB
         where: { id: id }
     })
         .then(user => {
             if (user === null) {
                 res.status(400).json({ error: "Utilisateur non trouvé" });
             } else {
-                if (user.isAdmin) {
-                    param = { postId: req.params.id };
+                if (user.isAdmin) { // Condition d'affichage en fonction du compte (admin/user)
+                    const param = { postId: req.params.id };
                 } else {
-                    param = { published: 1, postId: req.params.id };
+                    const param = { published: 1, postId: req.params.id }; // Récupère les commentaires modérés
                 }
                 models.Comment.findAll({
                     include: [{
@@ -38,6 +38,7 @@ exports.getPostComments = (req, res) => {
         .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }));
 }
 
+// Création commentaire
 exports.createComments = (req, res) => {
     const id = utils.getUserId(req.headers.authorization);
     models.User.findOne({
@@ -60,6 +61,7 @@ exports.createComments = (req, res) => {
         .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
 };
 
+// Permet à l'admin de cacher ou d'afficher un commentaire
 exports.updateCommentPublished = (req, res) => {
     const id = utils.getUserId(req.headers.authorization);
     models.User.findOne({

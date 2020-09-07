@@ -14,9 +14,9 @@ exports.getAllPosts = (req, res) => {
                 res.status(400).json({ error: "Utilisateur non trouvé" });
             } else {
                 if (user.isAdmin) {
-                    param = {};
+                    const param = {}; // Affichage posts admin
                 } else {
-                    param = { published: 1 };
+                    const param = { published: 1 }; // Affichage posts user
                 }
                 models.Post.findAll({
                     where: param,
@@ -39,6 +39,7 @@ exports.getAllPosts = (req, res) => {
         .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }));
 }
 
+// Récupère d'un post
 exports.getOnePost = (req, res) => {
     models.Post.findOne({
         where: { id: req.params.id }
@@ -54,6 +55,7 @@ exports.getOnePost = (req, res) => {
 
 }
 
+// Création des posts
 exports.createPosts = (req, res) => {
     const id = utils.getUserId(req.headers.authorization);
     models.User.findOne({
@@ -65,11 +67,11 @@ exports.createPosts = (req, res) => {
                 res.status(400).json({ error: "Utilisateur non trouvé" });
             } else {
                 if (req.file != undefined) {
-                    imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+                    const imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
                 } else {
-                    imageUrl = null;
+                    const imageUrl = null;
                 }
-                post = models.Post.create({
+                models.Post.create({
                     UserId: id,
                     content: req.body.content,
                     imageUrl: imageUrl
@@ -82,6 +84,7 @@ exports.createPosts = (req, res) => {
         .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }))
 };
 
+// Permet à l'admin de cacher ou d'afficher un post
 exports.updatePostPublished = (req, res) => {
     const id = utils.getUserId(req.headers.authorization);
     models.User.findOne({
@@ -98,8 +101,8 @@ exports.updatePostPublished = (req, res) => {
                     models.Post.update({
                         published: req.body.published,
                     }, { where: { id: req.params.id } })
-                        .then(() => res.status(201).json({ message: 'Article mis a jour' }))
-                        .catch(() => res.status(500).json({ error: 'Article non mis a jour' }));
+                        .then(() => res.status(201).json({ message: 'Publication mis a jour' }))
+                        .catch(() => res.status(500).json({ error: 'Publication non mis a jour' }));
                 }
             }
         })
