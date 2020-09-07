@@ -6,7 +6,7 @@
 - nodemon
 - MySQL Server
 
-Import - The [groupomania.sql file](https://github.com/annesoflouret/Projet-6/blob/master/backend/groupomania.sql) in your my SQL server
+Import - The [groupomania.sql file](https://github.com/annesoflouret/projet-7/blob/master/backend/groupomania.sql) in your my SQL server
 
 Launch the command 
 
