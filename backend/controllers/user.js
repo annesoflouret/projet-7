@@ -87,7 +87,7 @@ exports.deleteUser = (req, res) => {
     where: { id: id }
   }).then(user => {
     if (!user) {
-      res.status(401).json({ error: 'Utilisateur non trouvé !' });
+      res.status(404).json({ error: 'Utilisateur non trouvé !' });
     } else {
       models.User.destroy({ where: { id: id } })
         .then(() => res.status(200).json({ message: 'Utilisateur supprimé !' }))

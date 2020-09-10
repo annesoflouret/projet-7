@@ -11,7 +11,7 @@ exports.getPostComments = (req, res) => {
     })
         .then(user => {
             if (user === null) {
-                res.status(400).json({ error: 'Utilisateur non trouvé' });
+                res.status(401).json({ error: 'Utilisateur non trouvé' });
             } else {
                 if (user.isAdmin) { // Condition d'affichage en fonction du compte admin
                     param = { postId: req.params.id };
@@ -46,7 +46,7 @@ exports.createComments = (req, res) => {
     })
         .then(user => {
             if (user === null) {
-                res.status(400).json({ error: 'Utilisateur non trouvé' });
+                res.status(401).json({ error: 'Utilisateur non trouvé' });
             } else {
                 comment = models.Comment.create({
                     UserId: id,
@@ -69,15 +69,15 @@ exports.updateCommentPublished = (req, res) => {
     })
         .then(user => {
             if (user === null) {
-                res.status(400).json({ error: 'Utilisateur non trouvé' });
+                res.status(401).json({ error: 'Utilisateur non trouvé' });
             } else {
                 if (user.isAdmin === false) {
-                    res.status(400).json({ error: 'Utilisateur n\'est pas admin' });
+                    res.status(403).json({ error: 'Utilisateur n\'est pas admin' });
                 } else {
                     models.Comment.update({
                         published: req.body.published,
                     }, { where: { id: req.params.id } })
-                        .then(() => res.status(201).json({ message: 'Commentaire mis a jour' }))
+                        .then(() => res.status(200).json({ message: 'Commentaire mis a jour' }))
                         .catch(() => res.status(500).json({ error: 'Une erreur est survenue.' }));
                 }
             }

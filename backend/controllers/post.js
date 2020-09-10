@@ -11,7 +11,7 @@ exports.getAllPosts = (req, res) => {
     })
         .then(user => {
             if (user === null) {
-                res.status(400).json({ error: 'Utilisateur non trouvé' });
+                res.status(401).json({ error: 'Utilisateur non trouvé' });
             } else {
                 if (user.isAdmin) {
                     param = {}; // Affichage posts admin
@@ -44,7 +44,7 @@ exports.getOnePost = (req, res) => {
     })
         .then(post => {
             if (post === null) {
-                res.status(400).json({ error: 'Aucune publication trouvé !' });
+                res.status(404).json({ error: 'Aucune publication trouvé !' });//
             } else {
                 res.status(200).json(post);
             }
@@ -63,7 +63,7 @@ exports.createPosts = (req, res) => {
     })
         .then(user => {
             if (user === null) {
-                res.status(400).json({ error: 'Utilisateur non trouvé' });
+                res.status(401).json({ error: 'Utilisateur non trouvé' });
             } else {
                 if (req.file != undefined) {
                     imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
@@ -91,15 +91,15 @@ exports.updatePostPublished = (req, res) => {
     })
         .then(user => {
             if (user === null) {
-                res.status(400).json({ error: 'Utilisateur non trouvé' });
+                res.status(401).json({ error: 'Utilisateur non trouvé' });
             } else {
                 if (user.isAdmin === false) {
-                    res.status(400).json({ error: 'Utilisateur n\'est pas admin' });
+                    res.status(403).json({ error: 'Utilisateur n\'est pas admin' });
                 } else {
                     models.Post.update({
                         published: req.body.published,
                     }, { where: { id: req.params.id } })
-                        .then(() => res.status(201).json({ message: 'Publication mis a jour' }))
+                        .then(() => res.status(200).json({ message: 'Publication mis a jour' }))
                         .catch(() => res.status(500).json({ error: 'Publication non mis a jour' }));
                 }
             }
