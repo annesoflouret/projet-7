@@ -44,7 +44,7 @@ exports.getOnePost = (req, res) => {
     })
         .then(post => {
             if (post === null) {
-                res.status(404).json({ error: 'Aucune publication trouvé !' });//
+                res.status(404).json({ error: 'Aucune publication trouvé !' });
             } else {
                 res.status(200).json(post);
             }
